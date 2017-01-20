@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.shivamdev.kotlinexample"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    testCompile 'junit:junit:4.12'
+
+    compile "com.android.support:support-v4:$support"
+    compile "com.android.support:design:$support"
+
+    // Networking
+    compile "com.google.code.gson:gson:2.7"
+
+    // Butterknife
+    compile "com.jakewharton:butterknife:8.4.0"
+    annotationProcessor "com.jakewharton:butterknife-compiler:8.4.0"
+    //compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+
+    // Kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.anko:anko-sdk15:$kotlin_anko" // So here it's 15 too
+
+    // Anko
+    compile "org.jetbrains.anko:anko-sdk15:$kotlin_anko" // sdk19, sdk21, sdk23 are also available
+    compile "org.jetbrains.anko:anko-support-v4:$kotlin_anko" // In case you need support-v4 bindings
+    compile "org.jetbrains.anko:anko-appcompat-v7:$kotlin_anko" // For appcompat-v7 bindings
+
+    // Leak Canary
+    debugCompile "com.squareup.leakcanary:leakcanary-android:1.5"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:1.5"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:1.5"
+
+    // Timber
+    compile "com.jakewharton.timber:timber:4.5.0"
+
+    // Image loading
+    compile "com.squareup.picasso:picasso:2.5.2"
+}
+repositories {
+    mavenCentral()
+}
